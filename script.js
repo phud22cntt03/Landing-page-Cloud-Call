@@ -1,5 +1,4 @@
 document.addEventListener('DOMContentLoaded', () => {
-
     /* ==========================================================================
        1. HEADER INTERACTION
        ========================================================================== */
@@ -11,22 +10,18 @@ document.addEventListener('DOMContentLoaded', () => {
             header.classList.remove('scrolled');
         }
     });
-
     /* ==========================================================================
        2. MOBILE DRAWER NAVIGATION
        ========================================================================== */
     const mobileToggle = document.querySelector('.mobile-toggle');
     const mobileDrawer = document.querySelector('.mobile-drawer');
     const mobileLinks = document.querySelectorAll('.mobile-link, .mobile-drawer .btn');
-
     function toggleMenu() {
         mobileToggle.classList.toggle('active');
         mobileDrawer.classList.toggle('active');
         document.body.classList.toggle('no-scroll');
     }
-
     mobileToggle.addEventListener('click', toggleMenu);
-
     mobileLinks.forEach(link => {
         link.addEventListener('click', () => {
             if (mobileDrawer.classList.contains('active')) {
@@ -34,7 +29,6 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     });
-
     /* ==========================================================================
        3. INTERACTIVE FEATURES TAB SYSTEM
        ========================================================================== */
@@ -45,7 +39,6 @@ document.addEventListener('DOMContentLoaded', () => {
     let activeTabId = 'telephony';
     let tabAutoCycleTimer = null;
     const tabListOrder = ['telephony', 'productivity', 'coaching', 'ai-agents'];
-
     function switchTab(tabId) {
         activeTabId = tabId;
         
@@ -57,7 +50,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 btn.classList.remove('active');
             }
         });
-
         // Toggle text pane content
         tabPanes.forEach(pane => {
             if (pane.id === `pane-${tabId}`) {
@@ -66,7 +58,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 pane.classList.remove('active');
             }
         });
-
         // Toggle simulated mockup content inside window
         mockContents.forEach(content => {
             if (content.classList.contains(tabId === 'ai-agents' ? 'ai-agents' : tabId)) {
@@ -76,7 +67,6 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
-
     // Event listener for tab clicking
     tabBtns.forEach(btn => {
         btn.addEventListener('click', (e) => {
@@ -86,7 +76,6 @@ document.addEventListener('DOMContentLoaded', () => {
             switchTab(selectedTab);
         });
     });
-
     // Auto cycle tabs every 8 seconds
     function startTabAutoCycle() {
         tabAutoCycleTimer = setInterval(() => {
@@ -96,7 +85,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 8000);
     }
     startTabAutoCycle();
-
     /* ==========================================================================
        4. AUTO-PLAYING WORKFLOW TIMELINE
        ========================================================================== */
@@ -104,7 +92,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const workflowLine = document.querySelector('.workflow-line');
     let currentStep = 1;
     let workflowTimer = null;
-
     function activeStep(stepNum) {
         currentStep = stepNum;
         steps.forEach(step => {
@@ -115,7 +102,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 step.classList.remove('active');
             }
         });
-
         // Adjust background line progress
         if (workflowLine) {
             const percentage = ((stepNum - 1) / (steps.length - 1)) * 84 + 8;
@@ -127,7 +113,6 @@ document.addEventListener('DOMContentLoaded', () => {
             document.head.appendChild(styleSheet);
         }
     }
-
     steps.forEach(step => {
         step.addEventListener('click', () => {
             clearInterval(workflowTimer);
@@ -135,7 +120,6 @@ document.addEventListener('DOMContentLoaded', () => {
             activeStep(num);
         });
     });
-
     function startWorkflowCycle() {
         workflowTimer = setInterval(() => {
             let nextStep = currentStep + 1;
@@ -144,7 +128,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 4000);
     }
     startWorkflowCycle();
-
     /* ==========================================================================
        5. MONTHLY / YEARLY PRICING TOGGLE
        ========================================================================== */
@@ -152,9 +135,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const labelMonthly = document.getElementById('label-monthly');
     const labelYearly = document.getElementById('label-yearly');
     const priceAmounts = document.querySelectorAll('.price-amount');
-
     let billingCycle = 'monthly';
-
     function toggleBillingCycle() {
         if (billingCycle === 'monthly') {
             billingCycle = 'yearly';
@@ -177,7 +158,6 @@ document.addEventListener('DOMContentLoaded', () => {
             billingToggle.classList.remove('yearly');
             labelMonthly.classList.add('active');
             labelYearly.classList.remove('active');
-
             priceAmounts.forEach(price => {
                 price.style.transform = 'scale(0.8)';
                 price.style.opacity = '0';
@@ -189,19 +169,16 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         }
     }
-
     if (billingToggle) {
         billingToggle.addEventListener('click', toggleBillingCycle);
         labelMonthly.addEventListener('click', () => { if(billingCycle === 'yearly') toggleBillingCycle(); });
         labelYearly.addEventListener('click', () => { if(billingCycle === 'monthly') toggleBillingCycle(); });
     }
-
     /* ==========================================================================
        6. PRICING PLAN INJECTION & AUTO-SCROLL
        ========================================================================== */
     const planBtns = document.querySelectorAll('.plan-btn');
     const selectedPlanInput = document.getElementById('selectedPlan');
-
     planBtns.forEach(btn => {
         btn.addEventListener('click', (e) => {
             const planName = btn.getAttribute('data-plan');
@@ -223,24 +200,20 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     });
-
     /* ==========================================================================
        7. FAQ ACCORDION EXPANSION
        ========================================================================== */
     const faqQuestions = document.querySelectorAll('.faq-question');
-
     faqQuestions.forEach(btn => {
         btn.addEventListener('click', () => {
             const faqItem = btn.parentElement;
             const faqAnswer = faqItem.querySelector('.faq-answer');
             const isActive = faqItem.classList.contains('active');
-
             // Close all items
             document.querySelectorAll('.faq-item').forEach(item => {
                 item.classList.remove('active');
                 item.querySelector('.faq-answer').style.maxHeight = '0px';
             });
-
             // If not active before, open this item
             if (!isActive) {
                 faqItem.classList.add('active');
@@ -248,7 +221,6 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     });
-
     /* ==========================================================================
        8. LEAD FORM VALIDATION & SIMULATION
        ========================================================================== */
@@ -257,11 +229,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const resetSuccessBtn = document.getElementById('btn-success-reset');
     const submitBtn = leadForm.querySelector('.submit-btn');
     const spinnerIcon = submitBtn.querySelector('.btn-spinner-icon');
-
     // Live Validation RegEx
     const vietnamPhoneRegex = /^(03|05|07|08|09|01[2|6|8|9])+([0-9]{8})$/;
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
     // Error messages helpers
     function showError(fieldId, message) {
         const errorSpan = document.getElementById(`err-${fieldId}`);
@@ -274,7 +244,6 @@ document.addEventListener('DOMContentLoaded', () => {
             inputElement.style.borderColor = '#ef4444';
         }
     }
-
     function clearError(fieldId) {
         const errorSpan = document.getElementById(`err-${fieldId}`);
         const inputElement = document.getElementById(fieldId);
@@ -286,7 +255,6 @@ document.addEventListener('DOMContentLoaded', () => {
             inputElement.style.borderColor = '#cbd5e1';
         }
     }
-
     // Input listener to clear errors on change
     ['fullName', 'phoneNumber', 'email', 'companyName'].forEach(id => {
         const el = document.getElementById(id);
@@ -294,11 +262,9 @@ document.addEventListener('DOMContentLoaded', () => {
             el.addEventListener('input', () => clearError(id));
         }
     });
-
     if (leadForm) {
         leadForm.addEventListener('submit', (e) => {
             e.preventDefault();
-
             // Validate fields
             const fullName = document.getElementById('fullName').value.trim();
             const phoneNumber = document.getElementById('phoneNumber').value.trim();
@@ -306,48 +272,40 @@ document.addEventListener('DOMContentLoaded', () => {
             const companyName = document.getElementById('companyName').value.trim();
             
             let isValid = true;
-
             if (fullName.length < 2) {
                 showError('fullName', 'Họ tên phải dài ít nhất 2 ký tự.');
                 isValid = false;
             } else {
                 clearError('fullName');
             }
-
             if (!vietnamPhoneRegex.test(phoneNumber)) {
                 showError('phoneNumber', 'Số điện thoại Việt Nam không hợp lệ (10 chữ số, ví dụ 0912345678).');
                 isValid = false;
             } else {
                 clearError('phoneNumber');
             }
-
             if (!emailRegex.test(email)) {
                 showError('email', 'Địa chỉ email không hợp lệ.');
                 isValid = false;
             } else {
                 clearError('email');
             }
-
             if (companyName.length < 2) {
                 showError('companyName', 'Vui lòng cung cấp tên công ty hợp lệ.');
                 isValid = false;
             } else {
                 clearError('companyName');
             }
-
             if (!isValid) return;
-
             // Show loading spinner
             submitBtn.disabled = true;
             spinnerIcon.style.display = 'inline-block';
             submitBtn.querySelector('span').textContent = 'Đang xử lý thông tin...';
-
             // Simulate form submission to database
             setTimeout(() => {
                 submitBtn.disabled = false;
                 spinnerIcon.style.display = 'none';
                 submitBtn.querySelector('span').textContent = 'Nhận Tư Vấn Miễn Phí';
-
                 // Display success box
                 leadForm.classList.add('hidden');
                 successMsg.classList.add('active');
@@ -357,12 +315,10 @@ document.addEventListener('DOMContentLoaded', () => {
             }, 1800);
         });
     }
-
     if (resetSuccessBtn) {
         resetSuccessBtn.addEventListener('click', () => {
             successMsg.classList.remove('active');
             leadForm.classList.remove('hidden');
         });
     }
-
 });
